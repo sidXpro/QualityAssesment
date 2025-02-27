@@ -1,4 +1,5 @@
-# niqe
+# UPDATED niqe To support latest ENV
+
 NIQE (Completely blind image quality assessment) for grayscale images using skvideo's NIQE.
 
 ## for quality of test images
