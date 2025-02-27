@@ -10,7 +10,7 @@ import scipy.ndimage
 import numpy as np
 import scipy.special
 import math
-
+import cv2
 gamma_range = np.arange(0.2, 10, 0.001)
 a = scipy.special.gamma(2.0/gamma_range)
 a *= a
@@ -137,7 +137,7 @@ def get_patches_test_features(img, patch_size, stride=8):
 
 def extract_on_patches(img, patch_size):
     h, w = img.shape
-    patch_size = np.int(patch_size)
+    patch_size = int(patch_size)
     patches = []
     for j in range(0, h-patch_size+1, patch_size):
         for i in range(0, w-patch_size+1, patch_size):
@@ -170,7 +170,9 @@ def _get_patches_generic(img, patch_size, is_train, stride):
 
 
     img = img.astype(np.float32)
-    img2 = scipy.misc.imresize(img, 0.5, interp='bicubic', mode='F')
+    # img2 = scipy.misc.imresize(img, 0.5, interp='bicubic', mode='F')
+
+    img2 = cv2.resize(img, (img.shape[1] // 2, img.shape[0] // 2), interpolation=cv2.INTER_CUBIC)
 
     mscn1, var, mu = compute_image_mscn_transform(img)
     mscn1 = mscn1.astype(np.float32)
